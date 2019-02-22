@@ -25,7 +25,7 @@
 
 from binascii import a2b_hex, b2a_hex
 from datetime import datetime
-from socket import socket, timeout, AF_INET, SOCK_STREAM
+from socket import socket, timeout, AF_INET, AF_INET6, SOCK_STREAM
 from socket import error as socket_error
 from struct import pack, unpack
 import sys
@@ -202,7 +202,11 @@ class APNsConnection(object):
         # Fallback for socket timeout.
         for i in range(0, 3):
             try:
-                self._socket = socket(AF_INET, SOCK_STREAM)
+                try:
+                    self._socket = socket(AF_INET, SOCK_STREAM)
+                except Exception as e:
+                    self._socket = socket(AF_INET6, SOCK_STREAM)
+
                 self._socket.settimeout(self.timeout)
                 self._socket.connect((self.server, self.port))
                 break
