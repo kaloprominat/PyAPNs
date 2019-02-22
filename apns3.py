@@ -204,11 +204,12 @@ class APNsConnection(object):
             try:
                 try:
                     self._socket = socket(AF_INET, SOCK_STREAM)
+                    self._socket.settimeout(self.timeout)
+                    self._socket.connect((self.server, self.port))
                 except Exception as e:
                     self._socket = socket(AF_INET6, SOCK_STREAM)
-
-                self._socket.settimeout(self.timeout)
-                self._socket.connect((self.server, self.port))
+                    self._socket.settimeout(self.timeout)
+                    self._socket.connect((self.server, self.port))
                 break
             except timeout:
                 pass
