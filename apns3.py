@@ -23,6 +23,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+__version__ = '2.0.1'
+
 from binascii import a2b_hex, b2a_hex
 from datetime import datetime
 from socket import socket, timeout, AF_INET, AF_INET6, SOCK_STREAM
